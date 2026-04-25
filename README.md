@@ -1,2 +1,0 @@
-# InstagramG
-InstagramG

@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإصدار 4.2 Plus - تقرير إنستغرام الجديد | Ivan Showroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html { scroll-behavior: smooth; }
+  html.dark {
+    --bg: #030617;
+    --bg-2: #0b1229;
+    --card: rgba(17, 24, 45, 0.6);
+    --card-hover: rgba(26, 35, 63, 0.8);
+    --text: #e8eefc;
+    --muted: #94a3b8;
+    --border: rgba(255,255,255,0.08);
+    --accent: #7c3aed;
+  }
+  html.light {
+    --bg: #f0f4ff;
+    --bg-2: #e4ecff;
+    --card: rgba(255,255,255,0.88);
+    --card-hover: rgba(255,255,255,0.98);
+    --text: #0f172a;
+    --muted: #4b5563;
+    --border: rgba(15,23,42,0.1);
+    --accent: #6d28d9;
+  }
+  body {
+    font-family: 'Cairo', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.8;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    overflow-x: hidden;
+  }
+  .bg-mesh {
+    position: fixed; inset: 0; z-index: -2; overflow: hidden;
+    background: radial-gradient(900px 600px at 80% -10%, rgba(124,58,237,0.18), transparent),
+                radial-gradient(700px 500px at -10% 20%, rgba(14,165,233,0.13), transparent),
+                radial-gradient(500px 400px at 50% 110%, rgba(236,72,153,0.12), transparent);
+  }
+  html.light .bg-mesh {
+    background: radial-gradient(900px 600px at 80% -10%, rgba(124,58,237,0.1), transparent),
+                radial-gradient(700px 500px at -10% 20%, rgba(59,130,246,0.12), transparent),
+                radial-gradient(500px 400px at 50% 110%, rgba(14,165,233,0.08), transparent);
+  }
+  .mesh-orb {
+    position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.7;
+    animation: float 22s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 500px; height: 500px; background: #4c1d95; top: -10%; right: -5%; animation-delay: 0s; }
+  .orb2 { width: 400px; height: 400px; background: #0e7490; bottom: -15%; left: -5%; animation-delay: -7s; }
+  .orb3 { width: 300px; height: 300px; background: #6d28d9; top: 40%; left: 30%; animation-delay: -14s; }
+  html.light .orb1 { background: #a5b4fc; opacity: 0.45; }
+  html.light .orb2 { background: #7dd3fc; opacity: 0.45; }
+  html.light .orb3 { background: #c4b5fd; opacity: 0.35; }
+  @keyframes float {
+    0% { transform: translate(0,0) scale(1) rotate(0deg); }
+    100% { transform: translate(60px,-40px) scale(1.1) rotate(10deg); }
+  }
+  .glass {
+    background: var(--card);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  html.light .glass { box-shadow: 0 16px 48px rgba(15,23,42,0.09), inset 0 1px 0 rgba(255,255,255,0.9); }
+  .glass:hover { background: var(--card-hover); transform: translateY(-2px); box-shadow: 0 30px 80px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08); }
+  html.light .glass:hover { box-shadow: 0 24px 64px rgba(15,23,42,0.13), inset 0 1px 0 rgba(255,255,255,1); }
+  .tilt { transform-style: preserve-3d; will-change: transform; }
+  .shimmer { position: relative; overflow: hidden; }
+  .shimmer::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.1) 50%, transparent 80%);
+    transform: translateX(-100%); animation: shimmer 3s infinite;
+  }
+  html.light .shimmer::after { background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.5) 50%, transparent 80%); }
+  @keyframes shimmer { 100% { transform: translateX(200%); } }
+  .sidebar-link { transition: all 0.3s; }
+  .sidebar-link.active { background: var(--card-hover); border-color: var(--accent); color: var(--text); }
+  .sidebar-link.active .num { background: var(--accent); color: white; }
+  .up-badge { background: linear-gradient(135deg, #10b981, #059669); }
+  .down-badge { background: linear-gradient(135deg, #ef4444, #dc2626); }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.5); border-radius: 10px; }
+  html.light ::-webkit-scrollbar-thumb { background: rgba(109,40,217,0.3); }
+  /* Progress bar on dark */
+  .prog-fill { background: linear-gradient(90deg, #7c3aed, #ec4899, #06b6d4); }
+  /* Version badge */
+  .ver-badge {
+    background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  /* Glow pulse */
+  @keyframes glow-pulse {
+    0%,100% { box-shadow: 0 0 20px rgba(124,58,237,0.3); }
+    50% { box-shadow: 0 0 40px rgba(124,58,237,0.6); }
+  }
+  .glow { animation: glow-pulse 3s ease-in-out infinite; }
+  /* Fade in up */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeInUp 0.7s ease both; }
+  .fade-in-2 { animation: fadeInUp 0.7s 0.15s ease both; }
+  .fade-in-3 { animation: fadeInUp 0.7s 0.3s ease both; }
+  /* Chart bar */
+  .bar-fill { transition: width 1.5s cubic-bezier(0.2,0.8,0.2,1); }
+  /* Light mode text improvements */
+  html.light .opacity-70 { opacity: 0.65; }
+  html.light .opacity-50 { opacity: 0.55; }
+  html.light h1, html.light h2, html.light h3 { color: #0f172a; }
+</style>
+</head>
+<body>
+  <div class="bg-mesh">
+    <div class="mesh-orb orb1"></div>
+    <div class="mesh-orb orb2"></div>
+    <div class="mesh-orb orb3"></div>
+  </div>
+  <canvas id="particles" class="fixed inset-0 -z-10 opacity-[0.15]"></canvas>
+
+  <!-- Theme Toggle -->
+  <button id="themeToggle" class="fixed top-6 left-6 z-[100] glass w-12 h-12 rounded-2xl flex items-center justify-center hover:scale-105 active:scale-95">
+    <div id="themeIcon"></div>
+  </button>
+
+  <!-- Logo -->
+  <div class="fixed top-6 right-6 z-[100]">
+    <div class="glass rounded-2xl px-4 py-2.5 flex items-center gap-3">
+      <div id="logoSmall" class="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600 to-pink-500 flex items-center justify-center font-black text-white text-sm">i</div>
+      <div>
+        <div class="font-black text-sm leading-tight">Ivan Showroom</div>
+        <div class="text-xs opacity-50 leading-tight">إنستغرام الجديد</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="fixed top-0 right-0 bottom-0 z-30 w-[260px] hidden xl:flex flex-col pt-24 pb-32 px-4 overflow-y-auto">
+    <div class="glass rounded-3xl p-4 flex-1">
+      <div class="text-xs font-bold opacity-40 uppercase tracking-widest mb-4 px-2">الأقسام</div>
+      <nav id="sideNav" class="space-y-1"></nav>
+    </div>
+  </aside>
+
+  <main class="xl:pr-[280px] pb-32">
+
+    <!-- Hero -->
+    <section class="relative px-6 pt-28 pb-16 overflow-hidden">
+      <div class="max-w-[1200px] mx-auto">
+        <!-- Version badge -->
+        <div class="fade-in mb-6 flex flex-wrap items-center gap-3">
+          <span class="glass px-4 py-1.5 rounded-full text-sm font-bold ver-badge">الإصدار 4.2 Plus</span>
+          <span class="glass px-4 py-1.5 rounded-full text-sm font-bold opacity-70">25 أبريل 2026</span>
+          <span class="glass px-4 py-1.5 rounded-full text-sm font-bold opacity-70">صُنع خصيصاً لمعرض إيفان</span>
+        </div>
+
+        <div class="fade-in-2 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-black leading-tight mb-4">
+              تقرير إنستغرام <span class="ver-badge">الجديد</span>
+              <br>صفحة أُنشئت قبل 4 أشهر
+            </h1>
+            <p class="text-xl opacity-70 mb-6 leading-relaxed">
+              تحليل شامل ودقيق لأداء الصفحة — من المشاهدات والتفاعلات وصولاً لخطة العمل الحقيقية. كل رقم مستخرج مباشرة من لوحة الإنستغرام.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <div class="glass rounded-2xl px-5 py-3 text-center">
+                <div class="text-2xl font-black text-violet-400">557</div>
+                <div class="text-xs opacity-60 mt-0.5">متابع</div>
+              </div>
+              <div class="glass rounded-2xl px-5 py-3 text-center">
+                <div class="text-2xl font-black text-pink-400">238.3K</div>
+                <div class="text-xs opacity-60 mt-0.5">مشاهدات / 30 يوم</div>
+              </div>
+              <div class="glass rounded-2xl px-5 py-3 text-center">
+                <div class="text-2xl font-black text-emerald-400">+88.9%</div>
+                <div class="text-xs opacity-60 mt-0.5">نمو المشاهدات</div>
+              </div>
+              <div class="glass rounded-2xl px-5 py-3 text-center">
+                <div class="text-2xl font-black text-amber-400">74</div>
+                <div class="text-xs opacity-60 mt-0.5">منشوراً</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile Image placeholder -->
+          <div class="flex justify-center lg:justify-end">
+            <div class="glass rounded-3xl p-3 glow">
+              <div id="heroImg" class="w-full max-w-[280px] aspect-square rounded-2xl bg-gradient-to-br from-violet-600/30 via-pink-500/20 to-cyan-500/20 flex flex-col items-center justify-center border-2 border-dashed border-white/20 cursor-pointer relative overflow-hidden">
+                <i data-lucide="image-plus" class="w-12 h-12 opacity-30 mb-3"></i>
+                <span class="text-sm opacity-40 text-center px-4">أضف صورة معرض إيفان هنا</span>
+                <div class="absolute bottom-3 left-3 right-3 glass rounded-xl px-3 py-2 text-center">
+                  <div class="text-xs font-bold opacity-70">ivanshowroom</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Executive Summary -->
+    <section id="sec1" class="px-6 py-14 scroll-mt-24">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-12 h-12 rounded-2xl glass flex items-center justify-center font-black text-xl glow">1</div>
+          <h2 class="text-3xl md:text-4xl font-black">الملخص التنفيذي</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+          <div class="tilt glass shimmer rounded-3xl p-7">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-violet-500/15 flex items-center justify-center"><i data-lucide="eye" class="w-6 h-6 text-violet-400"></i></div>
+              <span class="up-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+88.9%</span>
+            </div>
+            <div class="text-4xl font-black mb-1">238.3K</div>
+            <div class="opacity-70">مشاهدات (30 يوم)</div>
+          </div>
+
+          <div class="tilt glass shimmer rounded-3xl p-7">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-pink-500/15 flex items-center justify-center"><i data-lucide="heart" class="w-6 h-6 text-pink-400"></i></div>
+              <span class="up-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+58.8%</span>
+            </div>
+            <div class="text-4xl font-black mb-1">2,300</div>
+            <div class="opacity-70">تفاعل مع المحتوى</div>
+          </div>
+
+          <div class="tilt glass shimmer rounded-3xl p-7">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 flex items-center justify-center"><i data-lucide="users" class="w-6 h-6 text-emerald-400"></i></div>
+              <span class="up-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+95.4%</span>
+            </div>
+            <div class="text-4xl font-black mb-1">170</div>
+            <div class="opacity-70">متابع جديد (28 يوم)</div>
+          </div>
+
+          <div class="tilt glass shimmer rounded-3xl p-7">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 flex items-center justify-center"><i data-lucide="navigation" class="w-6 h-6 text-cyan-400"></i></div>
+              <span class="up-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+264%</span>
+            </div>
+            <div class="text-4xl font-black mb-1">74.4K</div>
+            <div class="opacity-70">وصول</div>
+          </div>
+        </div>
+
+        <!-- Big insight card -->
+        <div class="glass rounded-3xl p-8 border-r-4 border-violet-500 mb-5">
+          <div class="flex gap-4">
+            <i data-lucide="award" class="w-8 h-8 text-violet-400 flex-shrink-0 mt-1"></i>
+            <div>
+              <div class="font-black text-xl mb-2">تقييم إنستغرام — مارس 2026</div>
+              <p class="text-xl opacity-90 leading-relaxed">"حققت أداءً مميزاً خلال شهر مارس! 118 ألف مشاهدة لريلز ومنشورات، وزيادة 59% عن فبراير."</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="glass rounded-3xl p-7">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-pink-500/15 flex items-center justify-center"><i data-lucide="video" class="w-5 h-5 text-pink-400"></i></div>
+              <h3 class="font-bold text-lg">إنجاز مارس</h3>
+            </div>
+            <div class="text-3xl font-black text-pink-400 mb-1">118K</div>
+            <div class="opacity-70 text-sm">مشاهدات ريلز ومنشورات</div>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="up-badge text-white text-xs px-2 py-0.5 rounded-full">+59% من فبراير</span>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-7">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center"><i data-lucide="user-check" class="w-5 h-5 text-amber-400"></i></div>
+              <h3 class="font-bold text-lg">إجمالي المتابعين</h3>
+            </div>
+            <div class="text-3xl font-black text-amber-400 mb-1">437</div>
+            <div class="opacity-70 text-sm">متابع نهاية مارس</div>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="up-badge text-white text-xs px-2 py-0.5 rounded-full">+107 من فبراير</span>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-7">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-sky-500/15 flex items-center justify-center"><i data-lucide="external-link" class="w-5 h-5 text-sky-400"></i></div>
+              <h3 class="font-bold text-lg">خارج المتابعين</h3>
+            </div>
+            <div class="text-3xl font-black text-sky-400 mb-1">86%</div>
+            <div class="opacity-70 text-sm">مشاهدات من غير متابعين</div>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="up-badge text-white text-xs px-2 py-0.5 rounded-full">+55% من فبراير</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Full Statistics -->
+    <section id="sec2" class="px-6 py-14 scroll-mt-24">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-12 h-12 rounded-2xl glass flex items-center justify-center font-black text-xl">2</div>
+          <h2 class="text-3xl md:text-4xl font-black">الإحصائيات الكاملة</h2>
+        </div>
+
+        <!-- Period data -->
+        <div class="grid lg:grid-cols-3 gap-5 mb-6">
+          <div class="lg:col-span-2 glass rounded-3xl p-8">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/15 flex items-center justify-center"><i data-lucide="calendar" class="w-5 h-5 text-blue-400"></i></div>
+              <h3 class="text-xl font-bold">الفترة: 24 مارس – 22 أبريل 2026</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div><div class="text-3xl font-black text-violet-400">238.3K</div><div class="opacity-70 text-sm mt-1">مشاهدات</div></div>
+              <div><div class="text-3xl font-black text-pink-400">2,300</div><div class="opacity-70 text-sm mt-1">تفاعلات</div></div>
+              <div><div class="text-3xl font-black text-emerald-400">177</div><div class="opacity-70 text-sm mt-1">متابع جديد</div></div>
+              <div><div class="text-3xl font-black text-amber-400">217</div><div class="opacity-70 text-sm mt-1">محتوى مُشارَك</div></div>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-8">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5 text-purple-400"></i></div>
+              <h3 class="text-xl font-bold">مارس فقط</h3>
+            </div>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center"><span class="opacity-70">مشاهدات ريلز</span><span class="font-bold text-xl">118K</span></div>
+              <div class="flex justify-between items-center"><span class="opacity-70">غير متابعين</span><span class="font-bold text-xl text-cyan-400">86%</span></div>
+              <div class="flex justify-between items-center"><span class="opacity-70">ريلز / منشور</span><span class="font-bold">23 / 3</span></div>
+              <div class="flex justify-between items-center"><span class="opacity-70">معدل استجابة</span><span class="font-bold text-emerald-400">100%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Insight note -->
+        <div class="mb-6 glass rounded-3xl p-6 border border-amber-500/30">
+          <div class="flex gap-3 items-start">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0"></i>
+            <p class="opacity-90"><span class="font-bold">ملاحظة:</span> بيانات 1-4 أبريل قد تكون ناقصة بسبب مشكلة تقنية مؤقتة في نظام إنستغرام (أُعلن عنها رسمياً). لم يتأثر توزيع المحتوى الفعلي.</p>
+          </div>
+        </div>
+
+        <!-- Growth bars -->
+        <div class="glass rounded-3xl p-8 mb-6">
+          <h3 class="text-xl font-bold mb-7">نسب النمو بالمقارنة مع الفترة السابقة</h3>
+          <div class="space-y-6">
+            <div>
+              <div class="flex justify-between mb-2"><span class="font-bold">المشاهدات</span><span class="text-violet-400 font-black">+88.9%</span></div>
+              <div class="h-3 bg-white/5 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-violet-600 to-pink-500" style="width:89%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2"><span class="font-bold">التفاعلات</span><span class="text-pink-400 font-black">+58.8%</span></div>
+              <div class="h-3 bg-white/5 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-pink-600 to-rose-400" style="width:59%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2"><span class="font-bold">المتابعون الجدد</span><span class="text-emerald-400 font-black">+95.4%</span></div>
+              <div class="h-3 bg-white/5 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-400" style="width:95%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2"><span class="font-bold">الوصول</span><span class="text-cyan-400 font-black">+264%</span></div>
+              <div class="h-3 bg-white/5 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-cyan-500 to-sky-400" style="width:100%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2"><span class="font-bold">جهات الاتصال بالرسائل</span><span class="text-amber-400 font-black">+100%</span></div>
+              <div class="h-3 bg-white/5 rounded-full overflow-hidden"><div class="bar-fill h-full rounded-full bg-gradient-to-r from-amber-500 to-yellow-400" style="width:100%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ads section -->
+        <div class="glass rounded-3xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/15 flex items-center justify-center"><i data-lucide="megaphone" class="w-5 h-5 text-orange-400"></i></div>
+            <h3 class="text-xl font-bold">أحدث الإعلانات النشطة</h3>
+          </div>
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="bg-white/5 rounded-2xl p-5 border border-emerald-500/20">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-2.5 py-1 rounded-full">نشط • ينتهي خلال 4 أيام</span>
+              </div>
+              <div class="font-bold mb-1 text-sm">ترويج لموقع ويب (Messenger)</div>
+              <div class="text-xs opacity-60 mb-3">إعلان • 21 أبريل 2026</div>
+              <div class="grid grid-cols-3 gap-3 text-center">
+                <div><div class="font-black text-lg text-violet-400">13.1K</div><div class="text-xs opacity-60">مشاهدة</div></div>
+                <div><div class="font-black text-lg text-pink-400">5</div><div class="text-xs opacity-60">محادثة</div></div>
+                <div><div class="font-black text-lg text-amber-400">$9.90</div><div class="text-xs opacity-60">إنفاق</div></div>
+              </div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-5 border border-emerald-500/20">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-2.5 py-1 rounded-full">نشط • ينتهي خلال 4 أيام</span>
+              </div>
+              <div class="font-bold mb-1 text-sm">ترويج منشور (فيديو كردي)</div>
+              <div class="text-xs opacity-60 mb-3">إعلان • 21 أبريل 2026</div>
+              <div class="grid grid-cols-3 gap-3 text-center">
+                <div><div class="font-black text-lg text-violet-400">23.6K</div><div class="text-xs opacity-60">مشاهدة</div></div>
+                <div><div class="font-black text-lg text-pink-400">3,695</div><div class="text-xs opacity-60">ThruPlay</div></div>
+                <div><div class="font-black text-lg text-amber-400">$6.85</div><div class="text-xs opacity-60">إنفاق</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Content Analysis -->
+    <section id="sec3" class="px-6 py-14 scroll-mt-24">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-12 h-12 rounded-2xl glass flex items-center justify-center font-black text-xl">3</div>
+          <h2 class="text-3xl md:text-4xl font-black">تحليل المحتوى الأفضل</h2>
+        </div>
+
+        <!-- Top reels -->
+        <div class="glass rounded-3xl p-8 mb-6">
+          <div class="flex items-center gap-3 mb-7">
+            <div class="w-10 h-10 rounded-xl bg-pink-500/15 flex items-center justify-center"><i data-lucide="trending-up" class="w-5 h-5 text-pink-400"></i></div>
+            <h3 class="text-xl font-bold">أبرز المحتوى حسب المشاهدات</h3>
+          </div>
+          <div class="space-y-4">
+            <!-- Reel 1 -->
+            <div class="bg-white/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start">
+              <div class="w-12 h-12 rounded-xl bg-violet-500/20 flex items-center justify-center flex-shrink-0 font-black text-violet-400 text-xl">#1</div>
+              <div class="flex-1">
+                <div class="font-bold mb-1 leading-snug">"كيف تقنع الزبون هل أيام 😂🤪🤣 — جاءوا مهاملاً قه ين كه ين فان روزاً" 😂</div>
+                <div class="text-xs opacity-60 mb-3">ريلز • 1 أبريل 2026</div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-violet-400">56.6K</div><div class="text-xs opacity-60">مشاهدة</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-pink-400">19.5K</div><div class="text-xs opacity-60">وصول</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-amber-400">360</div><div class="text-xs opacity-60">تفاعل</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-emerald-400">19</div><div class="text-xs opacity-60">متابعة</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-cyan-400">148</div><div class="text-xs opacity-60">نقر</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Reel 2 -->
+            <div class="bg-white/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start">
+              <div class="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center flex-shrink-0 font-black text-pink-400 text-xl">#2</div>
+              <div class="flex-1">
+                <div class="font-bold mb-1 leading-snug">"مو شرط تختار بين نوعين... الذكي هو اللي يجمع بينهم" 🔥💯</div>
+                <div class="text-xs opacity-60 mb-3">ريلز • 30 مارس 2026</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-violet-400">13.2K</div><div class="text-xs opacity-60">مشاهدة</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-pink-400">8,527</div><div class="text-xs opacity-60">وصول</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-amber-400">138</div><div class="text-xs opacity-60">تفاعل</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-emerald-400">5</div><div class="text-xs opacity-60">متابعة</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Reel 3 -->
+            <div class="bg-white/5 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-start">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center flex-shrink-0 font-black text-emerald-400 text-xl">#3</div>
+              <div class="flex-1">
+                <div class="font-bold mb-1 leading-snug">"مو أي معرض بيقدر يرضيك... بس إحنا نقدر كلشي بدك ياه تحت سقف واحد وبأفضل الخيارات!" 🔥😊</div>
+                <div class="text-xs opacity-60 mb-3">ريلز • 19 أبريل 2026</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-violet-400">11K</div><div class="text-xs opacity-60">مشاهدة</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-pink-400">7,900</div><div class="text-xs opacity-60">وصول</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-amber-400">150</div><div class="text-xs opacity-60">تفاعل</div></div>
+                  <div class="text-center bg-black/10 rounded-xl p-2"><div class="font-black text-emerald-400">8</div><div class="text-xs opacity-60">متابعة</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Viral Reel highlight -->
+            <div class="bg-gradient-to-r from-violet-500/10 to-pink-500/10 border border-violet-500/30 rounded-2xl p-5">
+              <div class="flex gap-3 items-center mb-3">
+                <i data-lucide="zap" class="w-5 h-5 text-yellow-400"></i>
+                <span class="font-bold text-yellow-300">ريلز انتشر فيروسياً — 11K+ مشاهدة</span>
+              </div>
+              <p class="opacity-80 text-sm leading-relaxed">ريلز "لمعلوماتك" الذي يظهر فيه الشخص يحمل عينات أقمشة مُلوّنة حصل على أكثر من 11 ألف مشاهدة واكتسب 5 متابعين جدد — وكان الأكثر مشاهدةً من أي محتوى شاركته الشهر الماضي.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content consistency -->
+        <div class="glass rounded-3xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center"><i data-lucide="calendar-check" class="w-5 h-5 text-emerald-400"></i></div>
+            <h3 class="text-xl font-bold">انتظام النشر — مارس 2026</h3>
+          </div>
+          <div class="flex gap-6 flex-wrap items-center mb-5">
+            <div class="text-center"><div class="text-3xl font-black text-pink-400">23</div><div class="text-sm opacity-60">ريلز</div></div>
+            <div class="text-2xl opacity-30">+</div>
+            <div class="text-center"><div class="text-3xl font-black text-violet-400">3</div><div class="text-sm opacity-60">منشور</div></div>
+            <div class="text-2xl opacity-30">=</div>
+            <div class="text-center"><div class="text-3xl font-black text-emerald-400">26</div><div class="text-sm opacity-60">إجمالي مارس</div></div>
+          </div>
+          <div class="bg-white/5 rounded-2xl p-4 mb-4">
+            <div class="text-sm font-bold mb-1 text-emerald-400">✓ رائع! أنت في طريقك للمشاركة بشكل متكرر</div>
+            <div class="text-sm opacity-70">مما يمكن أن يساعدك في زيادة المشاهدات والمتابعين. يُنصح بمواصلة هذه الوتيرة مع رفعها لـ 6 ريلز + منشور واحد أسبوعياً خلال أبريل.</div>
+          </div>
+          <div class="bg-white/5 rounded-2xl p-4">
+            <div class="font-bold mb-2 text-sm">أفضل أوقات النشر للوصول لجمهورك</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="glass px-3 py-1.5 rounded-xl text-sm">الإثنين • 9م – 12ص</span>
+              <span class="glass px-3 py-1.5 rounded-xl text-sm">السبت • 9م – 12ص</span>
+              <span class="glass px-3 py-1.5 rounded-xl text-sm">الأحد • 9م – 12ص</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Strengths -->
+    <section id="sec4" class="px-6 py-14 scroll-mt-24">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-12 h-12 rounded-2xl glass flex items-center justify-center font-black text-xl">4</div>
+          <h2 class="text-3xl md:text-4xl font-black">نقاط القوة</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-emerald-500">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center"><i data-lucide="trending-up" class="w-5 h-5 text-emerald-400"></i></div>
+              <h3 class="font-bold text-lg">نمو قياسي لصفحة حديثة</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">صفحة عمرها 4 أشهر فقط وتحقق 238 ألف مشاهدة و 88% نمو — هذا مؤشر استثنائي يدل على محتوى يلامس الجمهور الصحيح في دهوك.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-blue-500">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/15 flex items-center justify-center"><i data-lucide="users" class="w-5 h-5 text-blue-400"></i></div>
+              <h3 class="font-bold text-lg">وصول 86% من خارج المتابعين</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">معظم المشاهدين ليسوا متابعين بعد — هذا يعني الخوارزمية تدفع المحتوى لجمهور جديد باستمرار. قوة هائلة يمكن تحويلها لمتابعين ومبيعات.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-pink-500">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-pink-500/15 flex items-center justify-center"><i data-lucide="video" class="w-5 h-5 text-pink-400"></i></div>
+              <h3 class="font-bold text-lg">الريلز يؤدي بشكل ممتاز</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">ريلز "كيف تقنع الزبون" حصل على 56.6K مشاهدة لوحده. المحتوى الترفيهي والمعلوماتي المرتبط بالأثاث يحقق انتشاراً واسعاً.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-violet-500">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-violet-500/15 flex items-center justify-center"><i data-lucide="message-circle" class="w-5 h-5 text-violet-400"></i></div>
+              <h3 class="font-bold text-lg">معدل استجابة 100%</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">الرد على جميع الرسائل بنسبة 100% يبني ثقة قوية مع العملاء المحتملين ويحسن ترتيب الصفحة في خوارزمية إنستغرام.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-cyan-500">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/15 flex items-center justify-center"><i data-lucide="repeat" class="w-5 h-5 text-cyan-400"></i></div>
+              <h3 class="font-bold text-lg">انتظام النشر</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">23 ريلز و3 منشورات في مارس يعكس التزاماً واضحاً بالمحتوى. الاستمرارية هي المحرك الأول للنمو على إنستغرام.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-amber-500">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5 text-amber-400"></i></div>
+              <h3 class="font-bold text-lg">الإعلانات المدفوعة فعّالة</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">إعلانان نشطان بتكلفة $16.75 إجمالاً حققا 36.7K مشاهدة + 3,695 مشاهدة كاملة (ThruPlay) — عائد ممتاز للميزانية المنخفضة.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Weaknesses -->
+    <section id="sec5" class="px-6 py-14 scroll-mt-24">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-12 h-12 rounded-2xl glass flex items-center justify-center font-black text-xl">5</div>
+          <h2 class="text-3xl md:text-4xl font-black">نقاط الضعف</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-red-500/50">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-red-500/15 flex items-center justify-center"><i data-lucide="users" class="w-5 h-5 text-red-400"></i></div>
+              <h3 class="font-bold text-lg">عدد المتابعين لا يزال منخفضاً</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">557 متابع مقابل 238K مشاهدة — أي أن الصفحة تجذب المشاهدة لكنها لا تحوّلها لمتابعة. نسبة التحويل أقل من 0.5% وهذا يحتاج تحسيناً فورياً.</p>
+            <div class="mt-3 down-badge text-white text-xs px-3 py-1 rounded-full inline-block">أولوية عالية</div>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-orange-500/50">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-orange-500/15 flex items-center justify-center"><i data-lucide="link" class="w-5 h-5 text-orange-400"></i></div>
+              <h3 class="font-bold text-lg">النقرات على الروابط = صفر</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">معظم ريلز تُسجّل صفر نقرات على الروابط رغم آلاف المشاهدات. الـ Bio وال CTA في الفيديوهات لا يحوّلان الزوار لموقع أو واتساب.</p>
+            <div class="mt-3 down-badge text-white text-xs px-3 py-1 rounded-full inline-block">أولوية عالية</div>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-yellow-500/50">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-yellow-500/15 flex items-center justify-center"><i data-lucide="bar-chart-2" class="w-5 h-5 text-yellow-400"></i></div>
+              <h3 class="font-bold text-lg">المنشورات الثابتة ضعيفة جداً</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">3 منشورات فقط في مارس مقابل 23 ريلز — المنشورات ضرورية للظهور في نتائج البحث وللزوار الجدد الذين يزورون الملف الشخصي أول مرة.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-rose-500/50">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/15 flex items-center justify-center"><i data-lucide="dollar-sign" class="w-5 h-5 text-rose-400"></i></div>
+              <h3 class="font-bold text-lg">الأرباح التقريبية = صفر</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">لا إيرادات من الشراكات أو المنتجات الرقمية حتى الآن. الصفحة تبني الوعي فقط، وليس مساراً مباشراً للمبيعات عبر إنستغرام بعد.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-slate-500/50">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-slate-500/15 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5 text-slate-400"></i></div>
+              <h3 class="font-bold text-lg">غياب الاستراتيجية الموسمية</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">لا يوجد محتوى مرتبط بمواسم الشراء (رمضان، عيد، بداية الدراسة) وهي أكثر الأوقات ربحية لمعرض الأثاث.</p>
+          </div>
+
+          <div class="tilt glass rounded-3xl p-7 border-r-4 border-indigo-500/50">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center"><i data-lucide="image" class="w-5 h-5 text-indigo-400"></i></div>
+              <h3 class="font-bold text-lg">الـ Bio والهوية البصرية تحتاج تطوير</h3>
+            </div>
+            <p class="opacity-80 leading-relaxed">الملف الشخصي يفتقر لـ Story Highlights منظمة (تسليم، كولكشن، تسعير) ولصورة البروفايل الاحترافية التي تعكس هوية المعرض.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: What needs editing / what doesn't -->
+    <section id="sec6" class="px-6 py-14 scroll-mt-24">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-12 h-12 rounded-2xl glass flex items-center justify-center font-black text-xl">6</div>
+          <h2 class="text-3xl md:text-4xl font-black">ماذا يحتاج تعديل وماذا لا يحتاج</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Needs editing -->
+          <div class="glass rounded-3xl p-8 border border-red-500/20">
+            <div class="flex items-center gap-3 mb-7">
+              <div class="w-10 h-10 rounded-xl bg-red-500/15 flex items-center justify-center"><i data-lucide="edit" class="w-5 h-5 text-red-400"></i></div>
+              <h3 class="text-xl font-bold text-red-300">يحتاج تعديل عاجل</h3>
+            </div>
+            <div class="space-y-4">
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="x" class="w-3 h-3 text-red-400"></i></div>
+                <div><div class="font-bold">الـ Bio</div><div class="text-sm opacity-70">أضف رابط واتساب مباشر + عبارة تحفيزية واضحة + ساعات العمل</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="x" class="w-3 h-3 text-red-400"></i></div>
+                <div><div class="font-bold">الـ CTA في الريلز</div><div class="text-sm opacity-70">نهاية كل فيديو يجب أن تحتوي "احجز زيارتك الآن — اللنك بالبايو"</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="x" class="w-3 h-3 text-red-400"></i></div>
+                <div><div class="font-bold">Story Highlights</div><div class="text-sm opacity-70">أنشئ: "مجموعاتنا" | "التوصيل" | "الأسعار" | "آراء العملاء"</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="x" class="w-3 h-3 text-red-400"></i></div>
+                <div><div class="font-bold">صورة البروفايل</div><div class="text-sm opacity-70">استخدم شعار إيفان بخلفية بيضاء نظيفة بدل التصميم الدوراني الحالي</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="x" class="w-3 h-3 text-red-400"></i></div>
+                <div><div class="font-bold">الهاشتاقات</div><div class="text-sm opacity-70">أضف 5-8 هاشتاقات موضوعية (أثاث دهوك، ديكور عراق، غرفة نوم) لكل منشور</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keep as is -->
+          <div class="glass rounded-3xl p-8 border border-emerald-500/20">
+            <div class="flex items-center gap-3 mb-7">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center"><i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i></div>
+              <h3 class="text-xl font-bold text-emerald-300">يبقى كما هو ✓</h3>
+            </div>
+            <div class="space-y-4">
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i></div>
+                <div><div class="font-bold">أسلوب الريلز الشخصي</div><div class="text-sm opacity-70">الظهور الشخصي في الفيديو يبني ثقة — لا تغير هذا النهج أبداً</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i></div>
+                <div><div class="font-bold">وتيرة النشر (23+ ريلز شهرياً)</div><div class="text-sm opacity-70">هذا الكم ممتاز — فقط ارفع الجودة البصرية تدريجياً</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i></div>
+                <div><div class="font-bold">النبرة الودية والمحلية</div><div class="text-sm opacity-70">استخدام اللهجة المحلية (كردي + عربي) يزيد التفاعل بشكل كبير</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i></div>
+                <div><div class="font-bold">معدل الاستجابة 100%</div><div class="text-sm opacity-70">لا تتوقف عن الرد — هذا أحد أقوى مزاياك حالياً</div></div>
+              </div>
+              <div class="flex gap-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-1"><i data-lucide="check" class="w-3 h-3 text-emerald-400"></i></div>
+                <div><div class="font-bold">الإعلانات المدفوعة</div><div class="text-sm opacity-70">العائد ممتاز بميزانية منخفضة — زد الإنفاق تدريجياً مع تحسين الـ Landing Page</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: 90-day Action Plan -->
+    <section id="sec7" class="px-6 py-14 scroll-mt-24">
+      <div class="max-w-[1200px] mx-auto">
+        <div class="flex items-center gap-4 mb-10">
+          <div class="w-12 h-12 rounded-2xl glass flex items-center justify-center font-black text-xl">7</div>
+          <h2 class="text-3xl md:text-4xl font-black">خطة العمل الحقيقية — 90 يوماً</h2>
+        </div>
+
+        <div class="mb-6 glass rounded-3xl p-6 border border-violet-500/30">
+          <p class="opacity-80 leading-relaxed">الهدف: الوصول لـ <span class="font-black text-violet-400">2,000 متابع</span> خلال 90 يوماً مع رفع نسبة التحويل من مشاهد → زبون فعلي، وتحويل الصفحة من مجرد أداة وعي إلى <span class="font-black text-pink-400">مصدر مبيعات مباشر</span>.</p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Phase 1 -->
+          <div class="relative">
+            <div class="flex gap-6 items-start">
+              <div class="w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full glass flex items-center justify-center flex-shrink-0 z-10 border-2 border-violet-500/50 glow">
+                <span class="text-2xl md:text-3xl font-black text-violet-400">30</span>
+              </div>
+              <div class="glass rounded-3xl p-8 flex-1 -mt-2">
+                <div class="flex items-center gap-3 mb-4">
+                  <h3 class="text-2xl font-black">الشهر الأول — الأساسات</h3>
+                  <span class="px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold">المرحلة 1</span>
+                </div>
+                <p class="text-lg opacity-90 mb-5">إصلاح ما هو موجود قبل التوسع</p>
+                <div class="space-y-3">
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">اليوم 1-3:</span> تحديث الـ Bio بالكامل — رابط واتساب + وصف واضح للمنتجات + ساعات العمل</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">اليوم 3-7:</span> إنشاء 4 Story Highlights (مجموعاتنا / الأسعار / التوصيل / آراء العملاء)</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">اليوم 7-30:</span> إضافة CTA واضح في نهاية كل ريلز + 5-8 هاشتاقات مدروسة</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-violet-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">أسبوعياً:</span> 6 ريلز + منشور صورة واحد (مجموعة أو عرض سعر)</span>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">تحديث البروفايل</span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">Story Highlights</span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">CTA فيديو</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="relative">
+            <div class="flex gap-6 items-start">
+              <div class="w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full glass flex items-center justify-center flex-shrink-0 z-10 border-2 border-pink-500/50">
+                <span class="text-2xl md:text-3xl font-black text-pink-400">60</span>
+              </div>
+              <div class="glass rounded-3xl p-8 flex-1 -mt-2">
+                <div class="flex items-center gap-3 mb-4">
+                  <h3 class="text-2xl font-black">الشهر الثاني — التوسع</h3>
+                  <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold">المرحلة 2</span>
+                </div>
+                <p class="text-lg opacity-90 mb-5">بناء الجمهور المستهدف وتحويله</p>
+                <div class="space-y-3">
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-pink-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">محتوى قبل/بعد:</span> تحولات الغرف مع الأثاث — أعلى نسبة مشاركة في قطاع الديكور</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-pink-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">تعاون مع مدوّنين محليين:</span> دهوك/أربيل — ريلز مشترك مرة شهرياً</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-pink-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">رفع ميزانية الإعلانات:</span> من $16 إلى $30-40 شهرياً مع استهداف دهوك/أربيل/السليمانية</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-pink-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">مسابقة أو هبة:</span> "شارك المنشور واربح قطعة أثاث صغيرة" — يضاعف المتابعين بسرعة</span>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">محتوى قبل/بعد</span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">تعاون مع مدونين</span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">مسابقة</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="relative">
+            <div class="flex gap-6 items-start">
+              <div class="w-[60px] h-[60px] md:w-[80px] md:h-[80px] rounded-full glass flex items-center justify-center flex-shrink-0 z-10 border-2 border-emerald-500/50">
+                <span class="text-2xl md:text-3xl font-black text-emerald-400">90</span>
+              </div>
+              <div class="glass rounded-3xl p-8 flex-1 -mt-2">
+                <div class="flex items-center gap-3 mb-4">
+                  <h3 class="text-2xl font-black">الشهر الثالث — التحليل والتحسين</h3>
+                  <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold">المرحلة 3</span>
+                </div>
+                <p class="text-lg opacity-90 mb-5">ضاعف ما نجح، واحذف ما فشل</p>
+                <div class="space-y-3">
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">تقرير مقارن:</span> قارن أداء الأسابيع 1-4 مع 5-12 وحدد نوع المحتوى الأعلى تحويلاً</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">Instagram Shopping:</span> اربط المنتجات مباشرة بالمنشورات (متاح للحسابات التجارية العراقية)</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">أداة الذكاء الاصطناعي:</span> استخدم أدوات AI الموجودة في لوحة الإنستغرام لتوليد أفكار محتوى تلقائياً</span>
+                  </div>
+                  <div class="flex gap-3 items-start bg-white/5 rounded-xl p-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0"></i>
+                    <span class="text-sm"><span class="font-bold">هدف نهاية اليوم 90:</span> 2,000 متابع + 5 استفسار شراء شهرياً من إنستغرام</span>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">تقرير مقارن</span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">تحسين ROI</span>
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 text-sm">AI للمحتوى</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI targets -->
+        <div class="mt-8 glass rounded-3xl p-8 border border-violet-500/20">
+          <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+            <i data-lucide="target" class="w-6 h-6 text-violet-400"></i>
+            مؤشرات النجاح المستهدفة (نهاية اليوم 90)
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+            <div class="bg-white/5 rounded-2xl p-4 text-center">
+              <div class="text-3xl font-black text-violet-400 mb-1">2,000</div>
+              <div class="text-sm opacity-60">متابع</div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-4 text-center">
+              <div class="text-3xl font-black text-pink-400 mb-1">500K</div>
+              <div class="text-sm opacity-60">مشاهدة شهرية</div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-4 text-center">
+              <div class="text-3xl font-black text-emerald-400 mb-1">5%</div>
+              <div class="text-sm opacity-60">نسبة تحويل</div>
+            </div>
+            <div class="bg-white/5 rounded-2xl p-4 text-center">
+              <div class="text-3xl font-black text-amber-400 mb-1">50+</div>
+              <div class="text-sm opacity-60">نقرة رابط شهرياً</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-6 pb-32 pt-10 border-t border-white/5">
+      <div class="max-w-[1200px] mx-auto text-center">
+        <div class="glass rounded-3xl p-8 mb-6">
+          <div class="text-2xl font-black mb-2">الخلاصة النهائية</div>
+          <p class="text-lg opacity-80 max-w-2xl mx-auto leading-relaxed">صفحة إيفان للأثاث على إنستغرام تمتلك كل مقومات النجاح — محتوى جيد، نمو قوي، وجمهور يتوسع بسرعة. ما ينقصها الوحيد هو ترجمة هذه المشاهدات لزبائن فعليين. الخطوات السابقة كافية لتحويل الصفحة من أداة وعي إلى مصدر مبيعات حقيقي خلال 3 أشهر.</p>
+        </div>
+        <p class="opacity-40 tracking-wide font-medium text-sm">Designed exclusively for Ivan Showroom Exhibition by the Marketing Department</p>
+        <p class="opacity-25 text-xs mt-2">Update 4.2 Plus • Instagram Analytics Dashboard • April 25, 2026</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/9647514844125" target="_blank" class="fixed bottom-28 left-6 z-50 group">
+    <div class="glass rounded-full px-5 py-3.5 flex items-center gap-3 hover:scale-105 transition-all shadow-2xl border border-green-500/20 hover:border-green-500/40">
+      <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center group-hover:rotate-12 transition">
+        <i data-lucide="message-circle" class="w-4 h-4 text-white"></i>
+      </div>
+      <span class="font-bold text-sm hidden sm:block">تواصل مع قسم التسويق</span>
+    </div>
+  </a>
+
+  <!-- Progress Bar -->
+  <div class="fixed bottom-0 inset-x-0 z-40">
+    <div class="glass border-t border-white/10">
+      <div class="max-w-[1200px] mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center flex-shrink-0">
+            <i data-lucide="map" class="w-4 h-4 text-violet-400"></i>
+          </div>
+          <div class="min-w-0">
+            <div id="progressLabel" class="font-bold text-sm truncate">القسم 1 من 7 — الملخص التنفيذي</div>
+            <div class="text-xs opacity-60 md:hidden" id="progressPercentMobile">0%</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden md:flex items-center gap-1.5" id="progressDots"></div>
+          <div class="text-xs font-mono opacity-60 w-10 text-left hidden md:block" id="progressPercent">0%</div>
+        </div>
+      </div>
+      <div class="h-[3px] w-full bg-black/20">
+        <div id="progressBar" class="h-full w-0 prog-fill transition-all duration-300 ease-out"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  lucide.createIcons();
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+
+  function updateThemeIcon() {
+    const isDark = html.classList.contains('dark');
+    themeIcon.innerHTML = isDark
+      ? '<i data-lucide="moon" class="w-5 h-5"></i>'
+      : '<i data-lucide="sun" class="w-5 h-5"></i>';
+    lucide.createIcons();
+  }
+  updateThemeIcon();
+
+  themeToggle.addEventListener('click', () => {
+    html.classList.toggle('dark');
+    html.classList.toggle('light');
+    localStorage.setItem('ivan-theme-ig-new', html.classList.contains('dark') ? 'dark' : 'light');
+    updateThemeIcon();
+    // Update particle color
+  });
+
+  if (localStorage.getItem('ivan-theme-ig-new') === 'light') {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    updateThemeIcon();
+  }
+
+  // Sidebar sections
+  const sections = [
+    { id: 'sec1', name: 'الملخص التنفيذي', short: 'الملخص' },
+    { id: 'sec2', name: 'الإحصائيات الكاملة', short: 'الإحصائيات' },
+    { id: 'sec3', name: 'تحليل المحتوى الأفضل', short: 'المحتوى' },
+    { id: 'sec4', name: 'نقاط القوة', short: 'القوة' },
+    { id: 'sec5', name: 'نقاط الضعف', short: 'الضعف' },
+    { id: 'sec6', name: 'ما يحتاج تعديل', short: 'التعديلات' },
+    { id: 'sec7', name: 'خطة العمل 90 يوم', short: 'الخطة' },
+  ];
+
+  const sideNav = document.getElementById('sideNav');
+  sections.forEach((s, i) => {
+    const a = document.createElement('a');
+    a.href = `#${s.id}`;
+    a.className = 'sidebar-link group flex items-center gap-3 px-3 py-3 rounded-2xl border border-transparent hover:bg-white/5';
+    a.innerHTML = `
+      <div class="num w-8 h-8 rounded-xl bg-white/10 group-[.active]:bg-violet-600 flex items-center justify-center font-bold text-sm transition">${i+1}</div>
+      <div class="flex-1">
+        <div class="font-bold leading-tight">${s.short}</div>
+        <div class="text-xs opacity-60">${s.name.split(' ')[0]}</div>
+      </div>
+    `;
+    sideNav.appendChild(a);
+  });
+
+  // Progress dots
+  const dotsWrap = document.getElementById('progressDots');
+  sections.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'w-6 h-1.5 rounded-full bg-white/20 transition-all hover:bg-white/40';
+    b.onclick = () => document.getElementById(sections[i].id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    dotsWrap.appendChild(b);
+  });
+
+  const progressLabel = document.getElementById('progressLabel');
+  const progressBar = document.getElementById('progressBar');
+  const progressPercent = document.getElementById('progressPercent');
+  const progressPercentMobile = document.getElementById('progressPercentMobile');
+  const sideLinks = [...document.querySelectorAll('.sidebar-link')];
+  const dotEls = [...dotsWrap.children];
+
+  function onScroll() {
+    const scrollY = window.scrollY + 200;
+    let active = 0;
+    sections.forEach((s, i) => {
+      const el = document.getElementById(s.id);
+      if (el && el.offsetTop <= scrollY) active = i;
+    });
+    sideLinks.forEach((l, i) => l.classList.toggle('active', i === active));
+    dotEls.forEach((d, i) => {
+      d.classList.toggle('!bg-violet-500', i === active);
+      d.classList.toggle('w-8', i === active);
+    });
+    progressLabel.textContent = `القسم ${active + 1} من 7 — ${sections[active].name}`;
+    const max = document.body.scrollHeight - window.innerHeight;
+    const pct = Math.max(0, Math.min(100, Math.round((window.scrollY / max) * 100)));
+    progressBar.style.width = pct + '%';
+    progressPercent.textContent = pct + '%';
+    if (progressPercentMobile) progressPercentMobile.textContent = pct + '%';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Tilt 3D
+  document.querySelectorAll('.tilt').forEach(card => {
+    let rAF;
+    card.addEventListener('mousemove', e => {
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(() => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        const rx = (y - r.height/2) / 14;
+        const ry = (r.width/2 - x) / 14;
+        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(4px)`;
+      });
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+    });
+  });
+
+  // Particles
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particles = Array.from({length: 55}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.3
+    }));
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = html.classList.contains('dark') ? 'rgba(167,139,250,0.6)' : 'rgba(109,40,217,0.35)';
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Animate bars on scroll
+  const bars = document.querySelectorAll('.bar-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const w = e.target.style.width;
+        e.target.style.width = '0%';
+        setTimeout(() => { e.target.style.width = w; }, 100);
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(b => barObserver.observe(b));
+</script>
+</body>
+</html>
